@@ -3,6 +3,7 @@ package com.example.servlet;
 import java.io.IOException;
 import java.util.Set;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,10 +17,15 @@ import com.example.Warehouse;
 public class GetUsersServlet extends HttpServlet
 {
     @Override
-    protected void doGet (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
-        Set<User> users = Warehouse.getInstance().getUsers();
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
 
+        Set<User> users = Warehouse.getInstance().getUsers();
         req.setAttribute("users", users);
-        req.getRequestDispatcher("/users").forward(req, resp);
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("jsp/users.jsp");
+        try {
+            requestDispatcher.forward(req, resp);
+        } catch (ServletException | IOException e) {
+            e.printStackTrace();
+        }
     }
 }
