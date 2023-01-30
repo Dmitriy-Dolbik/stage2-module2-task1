@@ -27,5 +27,9 @@ public class AddUserServlet extends HttpServlet
         req.setAttribute("user", user);
         req.getRequestDispatcher("/add").forward(req, resp);
     }
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getRequestDispatcher("/jsp/add.jsp").forward(req, resp);
+    }
 
 }
